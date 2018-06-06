@@ -8,7 +8,7 @@
         android:key="@string/volume_key"
         android:title="Volume"
         android:max="100"
-        android:defaultValue="0" />
+        android:defaultValue="100" />
 
 
 </PreferenceScreen>
