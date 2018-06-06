@@ -9,16 +9,19 @@ import java.io.IOException;
  * This can be an independent class.
  * It's here for convenience.
  */
-public class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListener {
+ public class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListener {
     Context appContext;
     MediaPlayer mPlayer;
+    float volume = 100;
     boolean musicIsPlaying = false;
 
-    public MyMusicRunnable(Context c) {
+    public MyMusicRunnable(Context c,int volume) {
         // be careful not to leak the activity context.
         // can keep the app context instead.
+        this.volume = volume;
         appContext = c.getApplicationContext();
     }
+
 
     public boolean isMusicIsPlaying() {
         return musicIsPlaying;
@@ -50,6 +53,7 @@ public class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListen
         } else {
             if (mPlayer == null) {
                 mPlayer = MediaPlayer.create(appContext, R.raw.theme);
+                setVolume(this.volume);
                 mPlayer.start();
                 mPlayer.setOnCompletionListener(this); // MediaPlayer.OnCompletionListener
             } else {
@@ -63,6 +67,11 @@ public class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListen
             musicIsPlaying = true;
         }
 
+    }
+
+    public void setVolume(float value){
+        this.volume = value;
+        mPlayer.setVolume(value/100,value/100);
     }
 
 }

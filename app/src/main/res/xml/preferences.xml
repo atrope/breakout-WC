@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="@string/pref_sfx_buttons"
+        android:title="@string/sfx_buttons"
+        android:defaultValue="true" />
+    <SeekBarPreference
+        android:key="@string/volume_key"
+        android:title="Volume"
+        android:max="100"
+        android:defaultValue="0" />
+
+
+</PreferenceScreen>
