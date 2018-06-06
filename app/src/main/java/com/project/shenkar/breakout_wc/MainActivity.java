@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         playSFX = settings.getBoolean(getString(R.string.pref_sfx_buttons),true);
         effects.run();
         musicPlayer.run();
-        //Bensound.com
+        //
     }
 
     public void onSettingsClicked(View v) {
