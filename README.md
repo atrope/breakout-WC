@@ -1,12 +1,10 @@
 # Breakout World Cup Edition
+<img src="/app/src/main/ic_launcher-web.png" width="144">      
 
-The classic breakout game w/ a homage to the 2018 World Cup
-
-
+Your Classic Breakout Game, with flags of the 2018 World Cup Teams
+Have Fun destroying the tiles of the countries flags.
 ## License
-
-
-This project is licensed under the MIT License 
+This project is licensed under the MIT License
 
 ### Credits
 
