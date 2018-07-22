@@ -5,11 +5,13 @@ Your Classic Breakout Game, with flags of the 2018 World Cup Teams
 Have Fun destroying the tiles of the countries flags.
 
 ## Game Shots
+<img src="/app/images/japan.jpg" width="144">      
+<img src="/app/images/nigeria.jpg" width="144">      
 <img src="/app/images/game.jpg" width="144">      
 
 
 ## Feature Image
-<img src="/app/images/feature.png" width="100%">      
+<img src="/app/images/feature.png" width="50%">      
 
 ## Documentation in docs
 [Click Here to go to Docs](https://docs.google.com/document/d/1QpuIVzsKPJFr2ALepjoasyCDqaeXqmZ53x2KehcokTQ/edit?usp=sharing "Documentation")
