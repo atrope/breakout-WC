@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onStartClicked(View v) {
         if (playSFX) effects.play(R.raw.cartoon);
-        startActivity(new Intent(MainActivity.this,GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        startActivity(new Intent(MainActivity.this,BreakoutGame.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
 
