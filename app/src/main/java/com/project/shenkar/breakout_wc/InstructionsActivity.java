@@ -1,14 +1,6 @@
 package com.project.shenkar.breakout_wc;
-import android.app.FragmentManager;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.preference.Preference;
-        import android.preference.PreferenceFragment;
-        import android.support.v7.app.AppCompatActivity;
-        import android.util.Log;
-        import android.support.v7.preference.SeekBarPreference;
-
-        import android.widget.SeekBar;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class InstructionsActivity extends AppCompatActivity {

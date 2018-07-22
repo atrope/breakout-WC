@@ -6,14 +6,19 @@ import android.graphics.Paint;
 
 public class Brick extends VisibleGameObject {
     private boolean isVisible;
+    private int color;
 
     public Brick(){
+        color = Color.WHITE;
         isVisible = true;
-        //int padding = 1;
     }
 
     public void setInvisible(){
         isVisible = false;
+    }
+
+    public void setColor(int newColor){
+        color = newColor;
     }
 
     public boolean getVisibility(){
@@ -21,10 +26,8 @@ public class Brick extends VisibleGameObject {
     }
 
     public void draw(Canvas canvas, Paint paint){
-        paint.setColor(Color.argb(255, 249, 129, 0));
-        if(this.isVisible) {
-            super.draw(canvas, paint);
-        }
+        paint.setColor(color);
+        if(this.isVisible) super.draw(canvas, paint);
     }
 
     @Override

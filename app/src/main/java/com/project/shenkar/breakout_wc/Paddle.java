@@ -25,33 +25,12 @@ public class Paddle extends VisibleGameObject {
     @Override
     public void update(long fps, long elapsedTime){
         PointF loc = getPosition();
-
         // collision with left and right walls
-        if(loc.x < 0.0f){
-            if(movementState == MovementState.Left){
-                velocity = 0;
-            }
-            else{
-                velocity = initialVelocity;
-            }
-        }
-        if(loc. x + getWidth() > screenX){
-            if(movementState == MovementState.Right){
-                velocity = 0;
-            }
-            else{
-                velocity = initialVelocity;
-            }
-        }
+        if(loc.x < 0.0f) velocity = (movementState == MovementState.Left)? 0 : initialVelocity;
+        if(loc. x + getWidth() > screenX) velocity = (movementState == MovementState.Right)? 0 : initialVelocity;
 
-        if(movementState == MovementState.Right){
-            loc.x = loc.x + velocity / fps;
-        }
-
-        if (movementState == MovementState.Left){
-            loc.x = loc.x - velocity / fps;
-        }
-
+        if(movementState == MovementState.Right) loc.x = loc.x + velocity / fps;
+        else if(movementState == MovementState.Left) loc.x = loc.x - velocity / fps;
         setPosition(loc.x, loc.y);
     }
 
@@ -66,10 +45,6 @@ public class Paddle extends VisibleGameObject {
     public void draw(Canvas canvas, Paint paint){
         paint.setColor(Color.argb(255, 255, 255, 255));
         super.draw(canvas, paint);
-    }
-
-    public float getVelocity(){
-        return velocity;
     }
 
     public void reset(){

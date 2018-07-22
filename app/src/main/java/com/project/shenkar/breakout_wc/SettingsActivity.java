@@ -18,12 +18,8 @@ public class SettingsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //.run();
-
-        if (getFragmentManager().findFragmentById(R.xml.preferences) == null) {
+        if (getFragmentManager().findFragmentById(R.xml.preferences) == null)
             getFragmentManager().beginTransaction().add(android.R.id.content, new SettingsFragment()).commit();
-        }
-
     }
 
     @Override
@@ -31,12 +27,7 @@ public class SettingsActivity extends AppCompatActivity{
         onBackPressed();
         return true;
     }
-
-
-
-
         static public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

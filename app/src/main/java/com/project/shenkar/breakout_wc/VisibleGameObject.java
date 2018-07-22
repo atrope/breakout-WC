@@ -38,11 +38,6 @@ public class VisibleGameObject {
         rect = new RectF(x, y, x + width, y + height);
     }
 
-    public void setBoundingRect(float updatedX){
-        rect.left = updatedX;
-        rect.right = updatedX + width;
-    }
-
     public void setBoundingRect(RectF r){
         rect.left = r.left;
         rect.right = r.right;

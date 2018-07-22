@@ -16,13 +16,11 @@ public class GameObjectManager {
         gameObjects.put(name, gameObject);
     }
 
-    public void remove(String name){
-        gameObjects.remove(name);
-    }
+    // LETS LEAVE IT HERE IF NEEDED...
+    public void remove(String name){ gameObjects.remove(name); }
 
-    public int getObjectCount(){
-        return gameObjects.size();
-    }
+    // LETS LEAVE IT HERE IF NEEDED...
+    public int getObjectCount(){ return gameObjects.size(); }
 
     public VisibleGameObject get(String name){
         return gameObjects.get(name);
@@ -31,7 +29,7 @@ public class GameObjectManager {
     public void drawAll(SurfaceHolder ourHolder, Canvas canvas, Paint paint){
         if(ourHolder.getSurface().isValid()) {
             canvas = ourHolder.lockCanvas();
-            canvas.drawColor(Color.argb(255, 26, 128, 182));
+            canvas.drawColor(Color.BLACK);
             for (ConcurrentHashMap.Entry<String, VisibleGameObject> entry : gameObjects.entrySet()) {
                 VisibleGameObject value = entry.getValue();
                 value.draw(canvas, paint);

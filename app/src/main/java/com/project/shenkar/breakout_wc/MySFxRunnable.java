@@ -1,8 +1,6 @@
 package com.project.shenkar.breakout_wc;
-
 import android.content.Context;
 import android.media.SoundPool;
-import android.util.Log;
 import android.util.SparseIntArray;
 import com.mta.sharedutils.AsyncHandler;
 import com.mta.sharedutils.compat.Compat;
@@ -54,14 +52,7 @@ public class MySFxRunnable implements Runnable {
     }
 
     public void play(int soundKey) {
-        Log.d("teste","Here");
-        if (soundPool == null || !prepared) {
-
-            Log.d("teste","Here2");
-            return;
-        }
-
-        Log.d("teste","Here3");
+        if (soundPool == null || !prepared) return;
         soundsMap.get(soundKey);
         soundPool.play(soundsMap.get(soundKey), 1.0f, 1.0f, 1, 0, 1.0f);
     }

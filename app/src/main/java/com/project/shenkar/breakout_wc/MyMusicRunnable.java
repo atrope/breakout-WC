@@ -1,14 +1,8 @@
 package com.project.shenkar.breakout_wc;
-
 import android.content.Context;
 import android.media.MediaPlayer;
-
 import java.io.IOException;
 
-/**
- * This can be an independent class.
- * It's here for convenience.
- */
  public class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListener {
     Context appContext;
     MediaPlayer mPlayer;

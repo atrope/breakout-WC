@@ -89,15 +89,14 @@ public class ScoreBoard {
         score += 10;
         if(score == maxScore){
             result = GameResult.Win;
-            //BreakoutGame.BreakoutView.getSoundManager().playSound("win");
+            //TODO play sound
         }
     }
 
     public void decrementLife(){
-        lives -= 1;
-        if(lives <= 0){
+        if(--lives <= 0){
             result = GameResult.Lose;
-            //BreakoutGame.BreakoutView.getSoundManager().playSound("lose");
+            //TODO play sound
         }
     }
 

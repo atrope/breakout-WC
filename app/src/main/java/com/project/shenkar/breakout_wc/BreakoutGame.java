@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import java.util.Iterator;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BreakoutGame extends Activity {
 
@@ -51,16 +52,18 @@ public class BreakoutGame extends Activity {
         private static Paddle paddle;
         private static Ball ball;
         private static GameObjectManager _gameObjectManager;
-        //private static SoundManager //_soundManager;
         private static ScoreBoard _scoreBoard;
         private static InGameMenu _inGameMenu;
+        private static Countries _countries;
 
         Brick[] bricks;
         private static int numBricks;
 
         // rect for menu buttons
         Rect menuButton;
-
+        /*
+         /* Create the Main game View
+         */
         private BreakoutView(Context context){
             super(context);
 
@@ -76,9 +79,8 @@ public class BreakoutGame extends Activity {
             _gameState = gameState.Playing;
 
             _gameObjectManager = new GameObjectManager();
-            //_soundManager = new SoundManager(context);
             _inGameMenu = new InGameMenu();
-
+            _countries = new Countries();
             paddle = new Paddle();
             paddle.setInitialPosition(screenX / 2 - 165, screenY - 130);
             _gameObjectManager.add("Paddle", paddle);
@@ -100,14 +102,15 @@ public class BreakoutGame extends Activity {
 
         @Override
         public void run(){
-            //_soundManager.playMusic();
             while(!isExiting()) GameLoop();
         }
 
         private boolean isExiting(){
             return _gameState == gameState.Exiting;
         }
-
+        /*
+        /* Deal with the game loop Here
+        */
         private void GameLoop(){
             switch(_gameState){
                 case Paused:
@@ -124,9 +127,7 @@ public class BreakoutGame extends Activity {
                     _gameObjectManager.drawAll(ourHolder, canvas, paint);
 
                     timeElapsed = System.currentTimeMillis() - startFrameTime;
-                    if(timeElapsed > 1){
-                        fps = 1000 / timeElapsed;
-                    }
+                    if(timeElapsed > 1) fps = 1000 / timeElapsed;
                     break;
                 default:
                     break;
@@ -182,14 +183,10 @@ public class BreakoutGame extends Activity {
                                 switch (button.action){
                                     case Resume:
                                         this.togglePause();
-                                        //_gameState = gameState.Playing;
-                                        //_soundManager.stopAllSounds();
                                         break;
                                     case Restart:
                                         resetGame();
                                         this.togglePause();
-                                        //_gameState = gameState.Playing;
-                                        //_soundManager.stopAllSounds();
                                         break;
                                     case Exit:
                                         ((Activity) getContext()).finish();
@@ -200,9 +197,6 @@ public class BreakoutGame extends Activity {
                     }
                     else if(_gameState == gameState.Completed){
                         resetGame();
-                        //_soundManager.stopAllSounds();
-                        //_gameState = gameState.ShowingMenu;
-                        //_soundManager.playMusic();
                     }
                     break;
 
@@ -216,33 +210,41 @@ public class BreakoutGame extends Activity {
             return true;
         }
 
+        /*
+        /* Draw the flag
+        */
+
         private void createBricks(){
-            int brickWidth = screenX/8;
+            int brickWidth = screenX/12;
             int brickHeight = screenY/10;
             float x, y;
             int padding = 1;
             numBricks = 0;
+            int randomNum = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+            int[][] colors;
+            //TODO: LEVEL FEATURE RANDOM FOR NOW
+            if (randomNum % 2 == 0) colors = _countries.getLevel(Countries.CountriesEnum.JAPAN);
+            else colors = _countries.getLevel(Countries.CountriesEnum.NIGERIA);
+
             int offset = 30;
-            for(int row = 0; row < 3; row++){
-                for(int column = 0; column < 8; column++){
+            for(int row = 0; row < 4; row++){
+                for(int column = 0; column < 12; column++){
                     bricks[numBricks] = new Brick();
+                    bricks[numBricks].setColor(colors[row][column]);
                     x = column * brickWidth + padding;
                     y = offset + (row * brickHeight) + padding;
                     bricks[numBricks].setSize(brickWidth - padding, brickHeight - padding);
                     bricks[numBricks].setInitialPosition(x, y);
-                    _gameObjectManager.add("Brick" + Integer.toString(numBricks),
-                            bricks[numBricks]);
+                    _gameObjectManager.add("Brick" + Integer.toString(numBricks),bricks[numBricks]);
                     numBricks++;
                 }
             }
         }
-
         public static void drawScoreBoard(Canvas c, Paint p){
             _scoreBoard.draw(c, p);
         }
 
         public static void showInGameMenu(){
-            //_soundManager.playMusic();
             _inGameMenu.show(ourHolder, canvas, paint);
         }
 
@@ -263,9 +265,6 @@ public class BreakoutGame extends Activity {
             return _scoreBoard;
         }
 
-//        public static SoundManager getSoundManager(){
-//            return //_soundManager;
-//        }
 
         public static boolean checkVictory(){
             if(_scoreBoard.getGameResult() != ScoreBoard.GameResult.Playing) {
@@ -285,8 +284,6 @@ public class BreakoutGame extends Activity {
         }
 
         public void stop(){
-            ////_soundManager.player.release();
-            ////_soundManager.soundPool.release();
         }
 
     }

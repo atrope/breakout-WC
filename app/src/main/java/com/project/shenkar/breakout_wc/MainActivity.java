@@ -6,8 +6,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import com.crashlytics.android.Crashlytics;
-
 
 public class MainActivity extends AppCompatActivity {
     protected static MyMusicRunnable musicPlayer;
@@ -24,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
         playSFX = settings.getBoolean(getString(R.string.pref_sfx_buttons),true);
         effects.run();
         musicPlayer.run();
-
-        //
     }
-    
+
     public void onInstructionsClicked(View v) {
         if (playSFX) effects.play(R.raw.cartoon);
         startActivity(new Intent(MainActivity.this,InstructionsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
