@@ -5,8 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import com.crashlytics.android.Crashlytics;
+
 
 public class MainActivity extends AppCompatActivity {
     protected static MyMusicRunnable musicPlayer;
@@ -16,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
         setContentView(R.layout.activity_main);
         SharedPreferences settings = getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(this), MODE_PRIVATE);
         if (effects == null ) effects = new MySFxRunnable(this);
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         playSFX = settings.getBoolean(getString(R.string.pref_sfx_buttons),true);
         effects.run();
         musicPlayer.run();
+
         //
     }
 
