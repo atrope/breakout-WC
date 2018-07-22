@@ -9,7 +9,7 @@ Have Fun destroying the tiles of the countries flags.
 
 
 ## Feature Image
-<img src="/app/images/feature.png" width="144">      
+<img src="/app/images/feature.png" width="100%">      
 
 ## Documentation in docs
 [Click Here to go to Docs](https://docs.google.com/document/d/1QpuIVzsKPJFr2ALepjoasyCDqaeXqmZ53x2KehcokTQ/edit?usp=sharing "Documentation")
