@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         //
     }
 
+    public void onInstructionsClicked(View v) {
+        if (playSFX) effects.play(R.raw.cartoon);
+        startActivity(new Intent(MainActivity.this,InstructionsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
     public void onSettingsClicked(View v) {
         if (playSFX) effects.play(R.raw.cartoon);
         startActivity(new Intent(MainActivity.this,SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Breakout World Cup Edition</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_start">Start</string>
+    <string name="title_activity_instructions">Instructions</string>
     <string name="sfx_buttons">SFX Buttons</string>
     <string name="volume_key">volume_player</string>
     <string name="pref_sfx_buttons">pref_sfx_buttons</string>
