@@ -35,7 +35,7 @@ public class BreakoutGame extends Activity {
     public void onBackPressed() {
         breakoutView.togglePause();
     }
-    private enum gameState{Playing, Paused, Completed, Exiting}
+    private enum gameState{Playing, Paused, Completed, LevelComplete,Exiting}
 
     public static class BreakoutView extends SurfaceView implements Runnable{
         Thread gameThread = null;
@@ -75,29 +75,8 @@ public class BreakoutGame extends Activity {
             display.getSize(size);
             screenX = size.x;
             screenY = size.y;
-
-            _gameState = gameState.Playing;
-
-            _gameObjectManager = new GameObjectManager();
-            _inGameMenu = new InGameMenu();
-            _countries = new Countries();
-            paddle = new Paddle();
-            paddle.setInitialPosition(screenX / 2 - 165, screenY - 130);
-            _gameObjectManager.add("Paddle", paddle);
-
-            ball = new Ball();
-            ball.setInitialPosition(screenX / 2, screenY / 2 + screenY / 15);
-            _gameObjectManager.add("Ball", ball);
-
-            bricks = new Brick[200];
-            numBricks = 0;
-
-            createBricks();
-            _scoreBoard = new ScoreBoard(numBricks);
-
-            menuButton = new Rect();
-            fps = 0;
-            timeElapsed = 0;
+            _scoreBoard = new ScoreBoard(48);
+            fillManager();
         }
 
         @Override
@@ -119,13 +98,14 @@ public class BreakoutGame extends Activity {
                 case Completed:
                     showEndGame();
                     break;
+                case LevelComplete:
+                    _gameObjectManager.resetAll();
+                    fillManager();
+                    break;
                 case Playing:
-
                     long startFrameTime = System.currentTimeMillis();
-
                     _gameObjectManager.updateAll(fps, timeElapsed);
                     _gameObjectManager.drawAll(ourHolder, canvas, paint);
-
                     timeElapsed = System.currentTimeMillis() - startFrameTime;
                     if(timeElapsed > 1) fps = 1000 / timeElapsed;
                     break;
@@ -133,7 +113,28 @@ public class BreakoutGame extends Activity {
                     break;
             }
         }
+        private void fillManager() {
+            _gameState = gameState.Playing;
 
+            _gameObjectManager = new GameObjectManager();
+            _inGameMenu = new InGameMenu();
+            _countries = new Countries();
+            paddle = new Paddle();
+            paddle.setInitialPosition(screenX / 2 - 165, screenY - 130);
+            _gameObjectManager.add("Paddle", paddle);
+
+            ball = new Ball();
+            ball.setInitialPosition(screenX / 2, screenY / 2 + screenY / 15);
+            _gameObjectManager.add("Ball", ball);
+
+            bricks = new Brick[200];
+            numBricks = 0;
+            createBricks();
+            menuButton = new Rect();
+            fps = 0;
+            timeElapsed = 0;
+
+        }
         private void togglePause(){
             if (_gameState == gameState.Paused)  _gameState = gameState.Playing;
             else _gameState = gameState.Paused;
@@ -186,7 +187,6 @@ public class BreakoutGame extends Activity {
                                         break;
                                     case Restart:
                                         resetGame();
-                                        this.togglePause();
                                         break;
                                     case Exit:
                                         ((Activity) getContext()).finish();
@@ -196,7 +196,7 @@ public class BreakoutGame extends Activity {
                         }
                     }
                     else if(_gameState == gameState.Completed){
-                        resetGame();
+                        ((Activity) getContext()).finish();
                     }
                     break;
 
@@ -220,12 +220,7 @@ public class BreakoutGame extends Activity {
             float x, y;
             int padding = 1;
             numBricks = 0;
-            int randomNum = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-            int[][] colors;
-            //TODO: LEVEL FEATURE RANDOM FOR NOW
-            if (randomNum % 2 == 0) colors = _countries.getLevel(Countries.CountriesEnum.JAPAN);
-            else colors = _countries.getLevel(Countries.CountriesEnum.NIGERIA);
-
+            int[][] colors = _countries.getLevel(_scoreBoard.getLevel());
             int offset = 30;
             for(int row = 0; row < 4; row++){
                 for(int column = 0; column < 12; column++){
@@ -267,10 +262,16 @@ public class BreakoutGame extends Activity {
 
 
         public static boolean checkVictory(){
-            if(_scoreBoard.getGameResult() != ScoreBoard.GameResult.Playing) {
+            if(_scoreBoard.getGameResult() == ScoreBoard.GameResult.Win) {
                 _gameState = gameState.Completed;
                 return true;
             }
+            else if(_scoreBoard.getGameResult() == ScoreBoard.GameResult.LevelComplete) {
+                _gameState = gameState.LevelComplete;
+                return true;
+            }
+
+
             return false;
         }
 
@@ -281,6 +282,7 @@ public class BreakoutGame extends Activity {
         public void resetGame(){
             _scoreBoard.resetScore();
             _gameObjectManager.resetAll();
+            fillManager();
         }
 
         public void stop(){

@@ -14,7 +14,7 @@ public class Paddle extends VisibleGameObject {
     private int screenX, screenY;
 
     Paddle(){
-        initialVelocity = 380.0f;
+        initialVelocity = 680.0f;
         velocity = initialVelocity;
         setSize(130, 20);
         movementState = MovementState.Stopped;
