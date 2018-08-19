@@ -94,9 +94,8 @@ public class ScoreBoard {
     public void incrementScore(){
         score += 10;
         levelScore+=10;
-
-        // if(levelScore % maxScore == 0 && levelScore>0){
-            if(levelScore>0){
+        //    if(levelScore>0){ // DEBUG one hit change level
+         if(levelScore % maxScore == 0 && levelScore>0){
                 if (level == maxLevel) result = GameResult.Win;
             else {
                 level++;
