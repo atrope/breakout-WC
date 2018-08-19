@@ -1,5 +1,8 @@
 package com.project.shenkar.breakout_wc;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,9 +17,9 @@ public class Ball extends VisibleGameObject{
     private long elapsedTimeSinceStart;
     private final long minCollisionInterval;
     private long collisionTime;
-
-    Ball(){
-        setSize(10, 10);
+    private Bitmap bitmap;
+    Ball(Context context){
+        setSize(30, 30);
         initialVelocity = 300;
         _velocity = initialVelocity;
         Random generator = new Random();
@@ -28,6 +31,8 @@ public class Ball extends VisibleGameObject{
         elapsedTimeSinceStart = 0;
         minCollisionInterval = 200;
         collisionTime = 0;
+        bitmap = BitmapFactory.decodeResource(context.getResources(),R.raw.ball);
+
     }
 
     /*
@@ -156,7 +161,7 @@ public class Ball extends VisibleGameObject{
 
     public void draw(Canvas canvas, Paint paint){
         paint.setColor(Color.argb(255, 255, 255, 255));
-        super.draw(canvas, paint);
+        canvas.drawBitmap(bitmap, getPosition().x, getPosition().y, paint);
     }
 
     public void clearObstacleY(float y){

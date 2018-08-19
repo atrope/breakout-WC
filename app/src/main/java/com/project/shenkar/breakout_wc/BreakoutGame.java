@@ -123,7 +123,7 @@ public class BreakoutGame extends Activity {
             paddle.setInitialPosition(screenX / 2 - 165, screenY - 130);
             _gameObjectManager.add("Paddle", paddle);
 
-            ball = new Ball();
+            ball = new Ball(this.getContext());
             ball.setInitialPosition(screenX / 2, screenY / 2 + screenY / 15);
             _gameObjectManager.add("Ball", ball);
 
